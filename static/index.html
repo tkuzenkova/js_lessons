@@ -1,1 +1,30 @@
-INDEX
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Основы JavaScript</title>
+        <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css">
+    </head>
+    <body>
+         <script>
+            var log = function() {
+                Array.prototype.unshift.call(arguments, '%c', 'color: green');
+                console.log.apply(console, arguments);
+            }            
+        </script>
+    структура кода, 
+    переменные, 
+    управляющие структуры, 
+    типы данных, 
+    структуры данных,  
+основы объектно-ориентированного программирования (ООП), 
+применение ООП в JavaScript и его особенности с ним.
+
+Функции и работа с разными типами функций, замыканиями. 
+Обработка и работа с аргументами функций. Изменение контекста функций. Области видимости.
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+        <script src="//code.jquery.com/qunit/qunit-1.15.0.js"></script>
+        <script src="js/tests.js"></script>
+    </body>
+</html>
