@@ -9,6 +9,8 @@ QUnit.test("структура кода", function(assert) {
     assert.equal(f(), 1, "Должно вернуть 1!");
 });
 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals
 var aaa = 1;
 QUnit.test("переменные", function(assert) {
     assert.equal(typeof foo, "undefined", "foo не объявлено");
@@ -26,12 +28,12 @@ QUnit.test("переменные", function(assert) {
     assert.equal(age, 36, "age is correct");
 
     var a = new Object();
-    var c.blah = 10;
-            assert.equal(a.blah, 10, "must be 10");
+    //var c.blah = 10;
+    assert.equal(a.blah, 10, "must be 10");
 
     var b = {};
-    b.value.prop = 2;
-    assert.equal(b.value.prop, 2, "must be 2");
+    //b.value.prop = 2;
+    //assert.equal(b.value.prop, 2, "must be 2");
 
     var c = "my string";
     var d = c + " is great!";
@@ -40,13 +42,45 @@ QUnit.test("переменные", function(assert) {
     var e = 40;
     var f = e / 8;
     assert.equal({bar: f}["bar"], 5, "is 5");
+
+    var myvar = "my value";
+
+    (function() {
+        console.log(myvar); // undefined
+        assert.equal(typeof myvar, '5', "should be undefined");
+        var myvar = "local value";
+    })();
+    
+    //const prefix = '212'; //es6
+    //var coffees = ["French Roast"  "Colombian"  "Kona"];
 });
 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Statements
 QUnit.test("управляющие структуры", function(assert) {
+
+    var j = 3;
+    {
+        var j = 1;
+    }
+    assert.equal(j, "3", "i?");
+
+    var i = 0;
+    if (j == 3) {
+        i = 1;
+    }
+    else if (j == 1) {
+        i = 2;
+    }
+    else {
+        i = 3;
+    }
+    assert.equal(i, "100", "i?");
+
     var i = 0;
     //for (i=0; i<100; i++;) console.log(i);
-    eval("for (i=0; i<100; i++) {};");
+    eval("for (i=0; i<100; i++;) {};");
     assert.equal(i, "100", "i=100");
+
 });
 
 /*
@@ -95,6 +129,20 @@ QUnit.test("Типы данных", function(assert) {
     assert.equal(typeof foo, "number", "Passed");
     foo = "string";
     assert.equal(typeof foo, "string", "Passed");
+    
+    var bar = 12;
+    assert.equal(typeof bar, "number", "what should it be?");
+    bar.value = 34;
+    assert.equal(typeof bar, "object", "what should it be?");
+    assert.equal(bar, "valueofbar", "what should it be?");
+    assert.equal(bar.valueOf(), "valueof bar", "what should it be?");
+    
+    var myList = ['home', , 'school', , ];
+    assert.equal(myList.length, 20, "what should it be?");
+    
+    var myList2 = new Array(20);
+    assert.equal(myList2.length, 0, "what should it be?");
+    assert.equal(myList2[0], !undefined, "what should it be?");
 });
 
 QUnit.test("структуры данных", function(assert) {
