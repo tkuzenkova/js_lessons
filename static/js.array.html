@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style>
+        *{margin:0;}
+
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+function getRandomInt(min, max) {
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+}
+
+var randomLengthArray = getRandomInt(50,100);
+
+var listItems = [];
+var listItems2 = {};
+
+for (var i=0; i<randomLengthArray; i++) {
+
+    listItems[i] = "Товар " + getRandomInt(1,9);
+
+    var itemVal = listItems[i];
+    
+    if (!listItems2[itemVal]) {
+
+        listItems2[itemVal] = 1;
+
+    } else {
+
+        listItems2[itemVal]++;
+
+    }
+}
+
+document.write(listItems + "<br><br>");
+
+for (var key in listItems2) {
+    document.write(key + " - " + listItems2[key] + " шт." + "<br>");
+}
+
+
+</script>
+
+
+</body>
+</html>
