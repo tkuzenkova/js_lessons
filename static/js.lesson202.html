@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+// Посчитать количество вхождений аждого слова в тексте
+    
+var str = "test Am test. of mr friendly Test by strongly peculiar juvenile. Unpleasant Test. test it sufficient simplicity am by friendship no inhabiting. Goodness doubtful material has denoting suitable she two. Dear mean she way and poor bred they come. He otherwise me incommode explained so in remaining. Polite barton in it warmly do county length an. Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat. Her bachelor honoured perceive securing but desirous ham required. Questions deficient acuteness to engrossed as. Entirely led ten humoured greatest and yourself. Besides ye country on observe. She continue appetite endeavor she judgment interest the met. For she surrounded motionless fat resolution may";
+
+var strLowerCase = str.toLowerCase();
+
+var words = strLowerCase.split(' ');
+var wordsCount = {};
+
+
+
+for (var i=0; i<words.length; i++) {
+
+    var wordVal = getWordWithoutDot(words[i]);
+
+    if (!wordsCount[wordVal]) {
+        wordsCount[wordVal] = 1;
+    } else {
+        wordsCount[wordVal]++;
+    }
+}
+
+document.write(str + "<br><br>");
+
+for (var key in wordsCount) {
+    document.write(key + ": " + wordsCount[key] + "<br>");
+}
+
+function getWordWithoutDot(x) {
+    if (x.charAt(x.length - 1) == ".") {
+        return x.substr(0, x.length - 1);
+    } else {
+        return x;
+    }
+}
+</script>
+
+</body>
+</html>

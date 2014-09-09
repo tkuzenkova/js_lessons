@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style>
+    #table table td{
+        border:1px solid #000;
+        width:40px;
+        height:40px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+
+
+
+
+<div id="table"></div>
+
+<script type="text/javascript">
+
+    // Напишите функцию для создания таблицы размером NхM. Такой, чтобы каждая ячейка заполнялась случайной буквой русского алфавита и случайным цветом фона 
+
+    var n = 20; // cells
+    var m = 10; // rows
+
+    var abc = ['а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'];
+
+    var table = document.createElement('table');
+
+    for (var i = 0; i < m; i++) {
+
+        var tr = document.createElement('tr');
+
+        for (var j = 0; j < n; j++) {
+
+            var td = document.createElement('td');
+            var randomValue = getRandomInt(0,abc.length-1);
+
+            td.innerHTML = abc[randomValue];
+            
+            var bg = 'background:' + generateColor();
+            td.setAttribute('style', bg);
+
+            tr.appendChild(td);
+        };
+
+        table.appendChild(tr);
+    };
+
+    document.getElementById('table').appendChild(table);
+
+
+    // Функция, которая генерирует случайный цвет в формате RGB
+    function generateColor() {
+
+        var arrColor = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+
+        var color = null;
+
+        for (var i = 0; i < 6; i++) {
+
+            var randomVal = getRandomInt(0,arrColor.length-1);
+
+            if (color == null) {
+                color = arrColor[randomVal];
+            } else {
+                color += arrColor[randomVal];
+            }
+            
+        };
+        return "#" + color;
+    }
+
+    // Generate random number
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+</script>
+
+</body>
+</html>
