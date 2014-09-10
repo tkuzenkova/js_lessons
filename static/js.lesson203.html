@@ -43,7 +43,7 @@
             var randomValue = getRandomInt(0,abc.length-1);
 
             td.innerHTML = abc[randomValue];
-            
+
             var bg = 'background:' + generateColor();
             td.setAttribute('style', bg);
 
@@ -61,20 +61,16 @@
 
         var arrColor = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
 
-        var color = null;
+        var color = "#";
 
         for (var i = 0; i < 6; i++) {
 
             var randomVal = getRandomInt(0,arrColor.length-1);
 
-            if (color == null) {
-                color = arrColor[randomVal];
-            } else {
-                color += arrColor[randomVal];
-            }
+            color += arrColor[randomVal];
             
         };
-        return "#" + color;
+        return color;
     }
 
     // Generate random number
