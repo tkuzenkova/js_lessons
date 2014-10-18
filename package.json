@@ -1,0 +1,12 @@
+{
+  "name": "node-api",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "h5bp": "^0.1.2",
+    "mongoose": "^3.8.18",
+    "node-crud": "^1.0.1",
+    "vhost": "^3.0.0"
+  }
+}
