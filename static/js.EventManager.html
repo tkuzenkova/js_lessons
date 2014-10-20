@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+
+</head>
+<body>
+
+<!-- 
+1. добавить в менеджер функцию unsubscribe(event_name, callback), которая отписывает коллбек от события
+2. функцию waitFor( [event1, event2, event3, ... ], callback ), которая выполняет коллбек тогда, когда выстрелят все события из списка (первый параметр - массив разных событий, не рассматриваем случай когда нам нужно ожидать повторения одного события несколько раз) 
+-->
+
+    <script type="text/javascript">
+
+        function EventManager(){
+            var listeners = [];
+            function createEventStack(event_name){
+                if (!listeners[event_name]) listeners[event_name] = [];
+            }
+            this.subscribe = function(event_name, callback){
+                createEventStack(event_name);
+                listeners[event_name].push(callback);
+                console.log(/*callback.toSource(), */" were added for " + event_name)
+            }
+            this.fire = function(event_name){
+                createEventStack(event_name);
+                for (var i = 0; i < listeners[event_name].length; i++) {
+                    var callback = listeners[event_name][i];
+                    console.log(event_name + " was fired, calling "/*, callback.toSource()*/)
+                    callback();
+                }
+            }
+        }
+
+        var manager = new EventManager;
+
+        function singleImageLoaded(){
+            console.log("image ready! firing event");
+            manager.fire('image:ready');
+        }
+        for (var i = 1; i <= 5; i++) {
+            setTimeout(singleImageLoaded, 1000 * i)
+        }
+
+        var imagesReady = (function(count) {
+    //создаем замыкание
+    var ready = 0;
+    return function(){
+        ready++;
+        console.log('increasing counter to', ready)
+        if (ready == count) manager.fire('image:all_ready');
+    }
+//ждем до 5 картинок
+})(5);
+manager.subscribe('image:ready', imagesReady);
+
+function loadSomething(){
+    console.log('all images were loaded succesfully')
+}
+manager.subscribe('image:all_ready', loadSomething);
+
+</script>
+
+</body>
+</html>

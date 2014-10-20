@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+</head>
+<body>
+
+
+
+
+<div id="table"></div>
+
+<script type="text/javascript">
+
+    //a = ['zyx', 'xyw', 'ywv'...'cba']
+    // str.charCodeAt(0);
+    // String.fromCharCode(code)
+    // reverse
+
+    //var abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'];
+    //abc.reverse();
+
+    var abc = [], newAbc = [], abcOdd = [], abcOddReverse = [];
+    var abc1 = [], abc2 = [], abc3 = [], abc123 = [];
+    var max = 122, min = 96;
+
+    for (var i = max; i > min; i--) {
+    	abc[max-i] = String.fromCharCode(i); // массив в обратном порядке
+    };
+
+    for (var i = 0; i < abc.length-2; i++) {
+    	newAbc[i] = abc[i] + abc[i+1] + abc[i+2]; //по три
+    };
+
+    for (var i = 0; i < abc.length/2; i++) {
+    	abcOdd[i] = abc[i*2]; // через одну с конца
+    };
+
+	abc.reverse();
+    for (var i = 0; i < abc.length/2; i++) {
+    	abcOddReverse[i] = abc[i*2]; // через одну с начала
+    };
+
+    for (var i = 0; i < abc.length/3; i++) {
+    	abc1[i] = abc[i*3]; // через две с начала
+    	abc2[i] = abc[i*3+1]; // через две с начала c 'b'
+    	abc3[i] = abc[i*3+2]; // через две с начала c 'c'
+    };
+
+    for (var i = 0; i < abc1.length; i++) {
+    	abc123[i*3] = abc1[i];
+    	abc123[i*3+1] = abc2[i];
+    	abc123[i*3+2] = abc3[i];
+    };
+
+
+
+    document.getElementById('table').innerHTML = abc + '<br>' + newAbc + '<br>' + abcOdd + '<br>' + abcOddReverse + '<br><br>' + abc1 +'<br>' + abc2 + '<br>' + abc3 + '<br>' + abc123;
+
+</script>
+
+</body>
+</html>

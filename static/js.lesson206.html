@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+</head>
+<body>
+
+
+
+
+<div id="table"></div>
+
+<script type="text/javascript">
+// сгенерировать массив чисел случайно длинны между 30 и 50. в цикле пройти по нему и заполнить случайными числами от 1 до 9 в текстовом представлении. Каждое пятое число должно начинаться и заканчиваться большой буквой, каждое десятое должно быть написано большими буквами ['one', 'five', 'seven', 'one', 'NinE', 'eight', 'seven', 'one', 'six', 'SEVEN', 'one', ...]
+
+function getRandomInt(min, max) {
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+}
+
+var randomLengthArray = getRandomInt(30,50);
+var arr = [];
+
+var numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
+for (var i = 0; i < randomLengthArray; i++) {
+    arr[i] = numbers[getRandomInt(0,8)];
+};
+
+for (var i = 1; i < arr.length/10; i++) {
+    arr[i*10-1] = arr[i*10-1].toUpperCase();
+};
+for (var i = 1; i < arr.length/5; i++) {
+    var firstLetter = arr[i*5-1].charAt(0).toUpperCase();
+    var lastLetter = arr[i*5-1].substr(-1,1).toUpperCase();
+    arr[i*5-1] = firstLetter + arr[i*5-1].slice(1,-1) + lastLetter;
+};
+
+
+document.getElementById('table').innerHTML = arr;
+</script>
+
+</body>
+</html>

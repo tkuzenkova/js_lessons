@@ -11,7 +11,8 @@
     </style>
 </head>
 <body>
-
+<div id="listItem"></div>
+<div id="result"></div>
 <script type="text/javascript">
 
 // Напишите функцию, генерирующую массив со случайным количеством элементов вида «Товар N», где N случайный номер товара (от 1 до 9). Выведите на экран количество товаров каждого вида.
@@ -44,11 +45,12 @@ for (var i=0; i<randomLengthArray; i++) {
     }
 }
 
-document.write(listItems + "<br><br>");
-
+var result = document.getElementById('result');
+result.innerHTML = listItems + "<br><br>";
 for (var key in listItems2) {
-    document.write(key + " - " + listItems2[key] + " шт." + "<br>");
+    result.innerHTML += (key + " - " + listItems2[key] + " шт." + "<br>");
 }
+
 
 
 </script>

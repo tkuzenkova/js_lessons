@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style> 
+        body{margin:0;}
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+//var width = Math.floor(+prompt('Ввдети ширину поля')_;
+//var height = Math.floor(+prompt('Введите высоту поля'));
+var width = 5,
+    height = 5;
+if (isNaN(width) || width <= 3 || width > 10 || height <= 0 || isNaN(height) || height <= 0 || height > 10) {
+    alert('error')
+} else {
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var field = [];
+
+    function resetField() {
+        var field = [];
+        for (var i = 0; i < width; i++) {
+            field[i] = [];
+            for (var j = 0; j < height; j++) {
+                var cell = {
+                    is_ship: false,
+                    //is_ship: getRandomInt(1,4) == 1 ? true : false,
+                    is_opened: false
+                };
+                field[i][j] = cell
+            };
+        };
+        return field;
+    }
+    field = resetField();
+
+    function isXYOk(x, y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) return true;
+        else return false;
+    }
+
+    function putShip(x, y) {
+        field[x][y].is_ship = true
+    }
+
+    function hit(x, y) {
+        if (isXYOk(x, y) && !field[x][y].is_opened) {
+            if (field[x][y].is_ship == true) {
+                alert('Hit')
+            } else {
+                alert('missed')
+            };
+        } else {
+            alert('is opened')
+        };
+    }
+
+    function hasShips() {
+        for (var i = 0; i < width; i++) {
+            for (var j = 0; i < height; i++) {
+                if (field[i][j].is_ship && !field[i][j].is_opened) {
+                    return true;
+                }
+            };
+        };
+        return false;
+    }
+
+    function putLongShip(n) {
+        var horVer = getRandomInt(0, 1);
+        var x = getRandomInt(0, width - 1 - (n - 1) * !horVer),
+            y = getRandomInt(0, height - 1 - (n - 1) * horVer);
+        console.log('x=', x);
+        console.log('y=', y);
+        console.log('horVer=', horVer)
+
+        function isPlacingShipPosible() {
+            for (var i = x - 1; i <= x + 1 + (n - 1) * !horVer; i++) {
+                for (var j = y - 1; j <= y + 1 + (n - 1) * horVer; j++) {
+                    if (!field[i][j].is_ship || field[i][j] == undefined) {
+                        return true;
+                    };
+                };
+            };
+            return false;
+        }
+        if (isPlacingShipPosible()) {
+            for (var i = x; i <= x + (n - 1) * !horVer; i++) {
+                for (var j = y; j <= y + (n - 1) * horVer; j++) {
+                    field[i][j].is_ship = true;
+                }
+            }
+        } else putLongShip(n);
+    }
+}
+
+</script>
+
+</body>
+</html>

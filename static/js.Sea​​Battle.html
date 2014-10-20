@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style> 
+        body{margin:0;}
+        #field table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin: 20px;
+        }
+        #field table td {
+            border:1px solid #333;
+            width:20px;
+            height:20px;
+            background: #f3f5fe;
+            text-align: center;
+            vertical-align: middle;
+        }
+        #field table td.ship{
+            background: #f77878;
+        }
+    </style>
+</head>
+<body>
+
+<div id="field"></div>
+
+<script type="text/javascript">
+
+function getRandomInt(min, max) {
+    return Math.floor( Math.random() * (max - min + 1) ) + min;
+}
+
+var width = 10;// Math.floor( +prompt("Введите ширину поля", "10") );
+
+if ( width == '' || width != width ) {
+    alert("Введены некорректные данные")
+} else if ( width <= 3 ) {
+    alert("Ширина слишком мала. Минимальное значение ширины 4")
+} else if ( width > 20 ) {
+    alert("Ширина слишком велика. Максимальное значение ширини 20")
+};
+
+// resetField (); устанавливает состояние is_opened всех ячеек в false и заново генерирует все корабли
+function resetField () {
+    var fieldInner = [];
+
+    for (var i = 0; i < width; i++) {
+
+        fieldInner[i] = [];
+
+        for (var j = 0; j < width; j++) {
+                
+            var cell = {
+
+                is_opened: false,
+                is_ship: ( getRandomInt(1,4) == 2 ) ? true : false
+                //is_ship: false
+
+            }
+
+            fieldInner[i][j] = cell;
+        }
+    }
+    return fieldInner;
+};
+
+var field = resetField ();
+
+function isVariablesValid (i,j) {
+    if ( i >= 3 && i < width && j >= 3 && j < width ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+//putShip(i,j); // устанавливаeт состояние ячейки is_ship в true
+function putShip (i,j) {
+    if ( isVariablesValid ) {
+        field[i][j].is_ship = true;
+        //return field[i][j].is_ship;
+    }
+}
+
+//toHit(i,j); //выводится сообщение о подбитии корабля (или о том, что промазал)
+function toHit (i,j) {
+    if ( isVariablesValid ) {
+        if ( field[i][j].is_opened ) {
+            alert("Is opened");
+        } else if ( field[i][j].is_ship ) {
+            alert("Hit");
+        } else {
+            alert("Missed");
+        } 
+    }
+}
+
+//Проверка наличия непотопленных кораблей hasShips(); возвращает true или false, если корабли остались или кончились
+function hasShips() {
+    for (var i = 0; i < width; i++) {
+
+        for (var j = 0; j < width; j++) {
+
+            if ( field[i][j].is_ship && !field[i][j].is_opened ) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+//Создать поле
+function createField () {
+    
+    var table = document.createElement('table');
+
+    for (var i = 0; i < width; i++) {
+        var tr = document.createElement('tr');
+
+        for (var j = 0; j < width; j++) {
+
+            var td = document.createElement('td');
+
+            if ( field[i][j].is_ship ) {
+               td.innerHTML = "s";
+               td.setAttribute('class', 'ship');
+            };
+            tr.appendChild(td);
+        };
+        table.appendChild(tr);
+    };
+
+    document.getElementById('field').appendChild(table);
+    return table;
+
+}
+
+createField ();
+//console.log(  );
+
+//создавать правильные корабли нужной длинны putLongShip(n)
+function putLongShip(n) {
+    //alert(n);
+}
+  
+//console.log( putLongShip(4) );
+
+//функция очищения поля от кораблей clearField()
+function clearField() {
+    for (var i = 0; i < width; i++) {
+
+        for (var j = 0; j < width; j++) {
+
+            field[i][j].is_ship = false;
+            field[i][j].is_opened = false;
+
+        }
+    }
+} 
+//clearField();
+
+</script>
+
+</body>
+</html>

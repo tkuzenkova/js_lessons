@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style> 
+    body{margin:0;}
+      #field { 
+        width: 200px;
+        height: 150px;
+        border: 10px groove black;
+        background-color: #00FF00;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    #ball {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        background: #f00;
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+
+    Кликните на любое место поля, чтобы мяч перелетел туда.<br>Мяч никогда не вылетит за границы поля.<br><br>
+
+    <div id="field">
+        <div id="ball"></div>
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    </div>
+
+    <script type="text/javascript">
+
+        var field = document.getElementById("field");
+        var ball = document.getElementById("ball");
+
+    
+        field.onclick = function (e) {
+
+            var fieldCoord = field.getBoundingClientRect();
+
+            var fieldInnerCoord = {
+
+                top: fieldCoord.top + field.clientTop,
+                left: fieldCoord.left + field.clientLeft
+
+            }
+
+            ball.style.left = e.clientX - fieldInnerCoord.left + 'px';
+            ball.style.top = e.clientY - fieldInnerCoord.top + 'px';
+
+        }
+
+
+    </script>
+
+</body>
+</html>

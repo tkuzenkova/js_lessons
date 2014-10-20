@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Java Script</title>
+    <script type="text/javascript" src="script.js"></script>
+    <style>
+        #table table td{
+            border:1px solid #000;
+            width:40px;
+            height:40px;
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+    <div id="table"></div>
+
+    <script type="text/javascript">
+
+// filter(arr, func)
+
+/* .. ваш код для filter, inBetween, inArray */
+//var arr = [1, 2, 3, 4, 5, 6, 7];
+
+//alert( filter(arr, function(a) { return a % 2 == 0 }) ); // 2,4,6
+
+//alert( filter(arr, inBetween(3,6)) ); // 3,4,5,6
+
+//alert( filter(arr, inArray([1,2,10])) ); // 1,2
+
+
+// Инкапсуляция
+// Настедование
+// Полиморфизм
+
+/*
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var x = Math.floor(+prompt('enter x'));
+var y = Math.floor(+prompt('enter y'));
+
+if ( ( isNaN(x) || x<=0 || x>10 ) ||  ( isNaN(y) || y<=0 || y>10 )  ){
+    alert("Error");
+} else {
+
+var table = [];
+function resetField () {
+
+    for (var i = 0; i < x; i++) {
+        table[i] = [];
+        for (var j = 0; j < y; j++) {
+
+            var cell = {
+                is_ship: getRandomInt(1,4) == 1 ? true : false;
+                is_opened: false;
+            }
+            table[i][j] = cell;
+
+        };
+    };
+    return table;
+
+}
+table = resetField();
+
+function putShip (x,y) {
+
+    //if (x>0 && x <)
+
+    table[x][y].is_ship = true;
+}
+
+function hit (x,y) {
+    if (table[x][y].is_ship == true) {
+        alert("Hit");
+    } else {
+        alert("Missed");
+    }
+}
+
+
+}*/
+
+
+    var x = Math.floor(+prompt('enter x'));
+    var y = Math.floor(+prompt('enter y'));
+
+if (
+    (isNaN(x) || x <= 0 || x > 10)
+    || (isNaN(y) || y <= 0 || y > 10)
+) {
+    alert('error')
+}
+else {
+
+    function getRandomInt(min, max)
+    {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var table = [];
+    function resetField() {
+        var table = [];
+        for (var i = 0; i < x; i++ ) {
+            table[i] = [];
+            for (var j = 0; j < y; j++) {
+                var cell = {
+                    is_ship: getRandomInt(1,4) == 1 ? true : false,
+                    is_opened: false
+                };
+                table[i][j] = cell;
+            }
+        }
+        return table;
+    }
+    table = resetField();
+
+    function isXYok(x1, y1) {
+        if (
+            x1 > 0 && x1 < x
+            && y1 > 0 && y1 < y
+        ) return true;
+        else return false;
+    }
+    function putShip(x1,y1) {
+        if (isXYok(x1, y1))
+        table[x][y].is_ship = true;
+    }
+
+    function hit(x1,y1) {
+        if (isXYok(x1, y1)) {
+            if (table[x][y].is_ship == true) alert('hit')
+            else alert('missed')
+        }
+    }
+    console.log(table);
+}
+</script>
+
+</body>
+</html>
