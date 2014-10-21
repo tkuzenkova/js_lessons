@@ -58,8 +58,8 @@ function resetField () {
             var cell = {
 
                 is_opened: false,
-                is_ship: ( getRandomInt(1,4) == 2 ) ? true : false
-                //is_ship: false
+                //is_ship: ( getRandomInt(1,4) == 2 ) ? true : false
+                is_ship: false
 
             }
 
@@ -115,6 +115,57 @@ function hasShips() {
     return false;
 }
 
+//функция очищения поля от кораблей clearField()
+function clearField() {
+    for (var i = 0; i < width; i++) {
+
+        for (var j = 0; j < width; j++) {
+
+            field[i][j].is_ship = false;
+            field[i][j].is_opened = false;
+
+        }
+    }
+} 
+//clearField();
+
+//создавать правильные корабли нужной длинны putLongShip(n)
+function putLongShip(n) {
+
+    //field[3][2].is_ship = true;
+    //console.log( 'not switch' );
+
+    var x = 3; // row
+    var y = 3; // column
+
+    /*if ( x == width-1 ) {
+        alert("test")
+    };*/
+
+    if (
+           !field[x-1][y-1].is_ship && !field[x][y-1].is_ship && !field[x+1][y-1].is_ship 
+        && !field[x-1][y].is_ship   && !field[x][y].is_ship   && !field[x+1][y].is_ship
+        && !field[x-1][y+1].is_ship && !field[x][y+1].is_ship && !field[x+1][y+1].is_ship
+    ) {
+
+        field[x][y].is_ship = true;
+        alert("true")
+
+    } else {
+
+        alert("false")
+
+    }
+
+
+    
+
+}
+putLongShip(2);    
+
+//console.log( putLongShip(4) );
+
+
 
 //Создать поле
 function createField () {
@@ -144,27 +195,6 @@ function createField () {
 
 createField ();
 //console.log(  );
-
-//создавать правильные корабли нужной длинны putLongShip(n)
-function putLongShip(n) {
-    //alert(n);
-}
-  
-//console.log( putLongShip(4) );
-
-//функция очищения поля от кораблей clearField()
-function clearField() {
-    for (var i = 0; i < width; i++) {
-
-        for (var j = 0; j < width; j++) {
-
-            field[i][j].is_ship = false;
-            field[i][j].is_opened = false;
-
-        }
-    }
-} 
-//clearField();
 
 </script>
 
