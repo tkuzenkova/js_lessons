@@ -1,17 +1,14 @@
-define(['jquery', 'templates', 'swig'], function ($, tmpl, swig) {
-	console.log('loading app');
-
+define(['jquery', 'templates'], function ($, tmpl) {
 	var API_URL = '//localhost:3000/api/';
 	var usersControllerUrl = 'beers';
 	var ul = null;
-
 
 	var app = {
 		init: function () {
 			$(document).on('templates:ready', app._init)
 		},
 		_init: function(){
-			$('#content').html(swig.render(tmpl.holder, { locals: {title: 'Beers list' } }));
+			$('#content').html( tmpl.render('holder', {title: 'Beer list'}) );
 		},
 		loadBeers: function () {
 			$.ajax({

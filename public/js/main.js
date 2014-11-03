@@ -6,7 +6,6 @@ require.config({
 	}
 });
 
-require(['jquery', 'templates', 'swig', 'app'], function ($, tmpl, swig, app) {
-	console.log('ready', app);
+require(['app'], function (app) {
 	app.init();
 });
