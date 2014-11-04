@@ -14,6 +14,7 @@ define(['jquery', 'templates'], function ($, tmpl) {
 					var beers = data.map(function(beer){ console.log(beer); return tmpl.render('option', beer); });
 					var html = tmpl.render('holder', {title: 'Beer list', beers: beers});
 					$('#content').html( html );
+					//http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
 				}
 			});
 		},
