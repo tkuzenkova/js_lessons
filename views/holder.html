@@ -1,4 +1,7 @@
 {{ title }}
 <select>
-    <option>value</option>
+    <option disabled>Choose your beer</option>
+    {% for beer in beers %}
+    {% autoescape false %}{{ beer }}{% endautoescape %}
+    {% endfor %}
 </select>

@@ -1,6 +1,6 @@
 define(['jquery', 'swig'], function ($, swig) {
 	var API_URL = '//localhost:3000/api/views/';
-	var preload_list = ['test', 'holder', 'tr'];
+	var preload_list = ['test', 'holder', 'tr', 'option'];
 
 	var TemplateManager = function(manager){
 		this.manager = manager;

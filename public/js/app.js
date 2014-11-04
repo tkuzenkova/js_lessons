@@ -8,33 +8,39 @@ define(['jquery', 'templates'], function ($, tmpl) {
 			$(document).on('templates:ready', app._init)
 		},
 		_init: function(){
-			$('#content').html( tmpl.render('holder', {title: 'Beer list'}) );
-		},
-		loadBeers: function () {
 			$.ajax({
 				url: API_URL + usersControllerUrl,
-				success: function (data) {
-					ul = $('#content ul');
-					if (ul.length == 0) {
-						ul = $('<ul></ul>');
-						console.log(ul)
-						$('#content').append(ul);
-					}
-					data.map(function (el) {
-						var li = document.createElement('li');
-						$(li).click(function (ev) {
-							console.log(ev, this);
-							var self = this;
-							$(this).hide(1000, function () {
-								$(self).remove();
-							});
-						}).html(el.username)
-						ul.append(li)
-					})
+				success: function(data){
+					var beers = data.map(function(beer){ console.log(beer); return tmpl.render('option', beer); });
+					var html = tmpl.render('holder', {title: 'Beer list', beers: beers});
+					$('#content').html( html );
 				}
-			})
+			});
+		},
+		//app.addBeer({name: 'new beer', type: 'cool', quantity: '12'})
+		addBeer: function(beer){
+			$.ajax({
+				url: API_URL + usersControllerUrl,
+				type: 'POST',
+				data: beer,
+				success: function(data){
+					console.log('success', data);
+				}
+			});
+		},
+		//app.updateBeer({_id: '', name: 'new beer', type: 'cool', quantity: '12'})
+		updateBeer: function(beer){
+			$.ajax({
+				url: API_URL + usersControllerUrl + '/' + beer._id,
+				type: 'PUT',
+				data: beer,
+				success: function(data){
+					console.log('success', data);
+				}
+			});
 		}
 	}
+	window.app = app;
 
 	return app;
 })
