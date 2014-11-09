@@ -23,72 +23,26 @@
         #field table td.ship{
             background: #f77878;
         }
-        #field table td.ship_hit{
-            background: #f00;
-        }
-        #field table td.opened_empty{
-            background: #ccc;
-        }
     </style>
 </head>
 <body>
 
 <div id="field"></div>
-<button id="createField">Create new field</button>
-<button id="updateField">Update field</button>
-<button id="clearField">Clear field</button>
-
 
 <script type="text/javascript">
-
-var idField = 'field';
 
 function getRandomInt(min, max) {
     return Math.floor( Math.random() * (max - min + 1) ) + min;
 }
-//запрашивает ширину поля
-function getWidth() {
-    do {
-        var width = 10;// Math.floor( +prompt("Введите ширину поля", "10") );
-    }
-    while ( !validateWidth(width) );
-    return width;
-}
-var width = getWidth();
 
-// проверяет width на корректность
-function validateWidth(width) {
-    if ( width == '' || width != width ) {
-        alert("Введены некорректные данные");
-        return false;
-    } else if ( width < 10 ) {
-        alert("Ширина слишком мала. Минимальное значение ширины 10");
-        return false;
-    } else if ( width > 20 ) {
-        alert("Ширина слишком велика. Максимальное значение ширини 20");
-        return false;
-    } else {
-        return true;
-    }
-}
+var width = 10;// Math.floor( +prompt("Введите ширину поля", "10") );
 
-// массив кораблей
-var ships = [];
-ships[0] = {
-    lengthShip:1,
-    numberShips:4
-};
-ships[1] = {
-    lengthShip:2,
-    numberShips:3
-};
-ships[2] = {
-    lengthShip:3,
-    numberShips:2
-};
-ships[3] = {
-    lengthShip:4,
-    numberShips:1
+if ( width == '' || width != width ) {
+    alert("Введены некорректные данные")
+} else if ( width <= 3 ) {
+    alert("Ширина слишком мала. Минимальное значение ширины 4")
+} else if ( width > 20 ) {
+    alert("Ширина слишком велика. Максимальное значение ширини 20")
 };
 
 // resetField (); устанавливает состояние is_opened всех ячеек в false и заново генерирует все корабли
@@ -102,8 +56,11 @@ function resetField () {
         for (var j = 0; j < width; j++) {
                 
             var cell = {
+
                 is_opened: false,
+                //is_ship: ( getRandomInt(1,4) == 2 ) ? true : false
                 is_ship: false
+
             }
 
             fieldInner[i][j] = cell;
@@ -114,23 +71,25 @@ function resetField () {
 
 var field = resetField ();
 
-/*function isVariablesValid (i,j) {
+function isVariablesValid (i,j) {
     if ( i >= 3 && i < width && j >= 3 && j < width ) {
         return true;
     } else {
         return false;
     }
-}*/
+}
+
 
 //putShip(i,j); // устанавливаeт состояние ячейки is_ship в true
-/*function putShip (i,j) {
+function putShip (i,j) {
     if ( isVariablesValid ) {
         field[i][j].is_ship = true;
+        //return field[i][j].is_ship;
     }
-}*/
+}
 
 //toHit(i,j); //выводится сообщение о подбитии корабля (или о том, что промазал)
-/*function toHit (i,j) {
+function toHit (i,j) {
     if ( isVariablesValid ) {
         if ( field[i][j].is_opened ) {
             alert("Is opened");
@@ -140,12 +99,14 @@ var field = resetField ();
             alert("Missed");
         } 
     }
-}*/
+}
 
 //Проверка наличия непотопленных кораблей hasShips(); возвращает true или false, если корабли остались или кончились
 function hasShips() {
     for (var i = 0; i < width; i++) {
+
         for (var j = 0; j < width; j++) {
+
             if ( field[i][j].is_ship && !field[i][j].is_opened ) {
                 return true;
             }
@@ -154,8 +115,8 @@ function hasShips() {
     return false;
 }
 
-//функция очищения поля от кораблей clearShips()
-function clearShips() {
+//функция очищения поля от кораблей clearField()
+function clearField() {
     for (var i = 0; i < width; i++) {
 
         for (var j = 0; j < width; j++) {
@@ -257,6 +218,26 @@ function putLongShip(lengthShip, func) {
     return true;
 }
 
+// массив кораблей
+var ships = [];
+ships[0] = {
+    lengthShip:1,
+    numberShips:4
+};
+ships[1] = {
+    lengthShip:2,
+    numberShips:3
+};
+ships[2] = {
+    lengthShip:3,
+    numberShips:2
+};
+ships[3] = {
+    lengthShip:4,
+    numberShips:1
+};
+
+
 // Ставить корабли пока будет место
 function putShips (ships) {
     for (var i = 0; i < ships.length; i++) {
@@ -266,14 +247,16 @@ function putShips (ships) {
             var x = getRandomInt(0, width-1);
             var y = getRandomInt(0, width-1);
 
-            var randomDirection;
-            if (getRandomInt(1,2) == 1) {
-                randomDirection = createVerShip;
-            } else {
-                randomDirection = createHorShip;
-            }        
+            var test;
+            for (var k = 0; k < ships[i].lengthShip; k++) {
+                if (k%2 == 0) {
+                    test = createVerShip;
+                } else {
+                    test = createHorShip;
+                }        
+            };
 
-            if ( putLongShip(ships[i].lengthShip, randomDirection) ) {
+            if ( putLongShip(ships[i].lengthShip, test) ) {
                 j++;
                 console.log("x" + x + "  y" + y)
             };
@@ -281,9 +264,12 @@ function putShips (ships) {
 
     };
 }
+putShips (ships);
+
 
 //Создать поле
-function createField (id) {
+function createField () {
+    
     var table = document.createElement('table');
 
     for (var i = 0; i < width; i++) {
@@ -293,89 +279,22 @@ function createField (id) {
 
             var td = document.createElement('td');
 
-            td.setAttribute('data-x', i);
-            td.setAttribute('data-y', j);
-
-            if ( field[i][j].is_ship && field[i][j].is_opened ) {
-               td.classList.add('ship_hit');
-            } else if ( !field[i][j].is_ship && field[i][j].is_opened ) {
-               td.classList.add('opened_empty');
-            }
+            if ( field[i][j].is_ship ) {
+               td.innerHTML = "s";
+               td.setAttribute('class', 'ship');
+            };
             tr.appendChild(td);
         };
         table.appendChild(tr);
     };
 
-    document.getElementById(id).appendChild(table);
+    document.getElementById('field').appendChild(table);
     return table;
+
 }
 
-//Удалить поле
-function  deleteField (id) {
-    document.getElementById(id).innerHTML = "";
-}
-
-//очистить поле
-function  clearField (id) {
-    document.getElementById(id).innerHTML = "";
-}
-
-
-
-// кнопки
-var btnCreateField = document.getElementById("createField");
-var btnUpdateField = document.getElementById("updateField");
-var btnClearField = document.getElementById("clearField");
-
-function handlerCreate() { 
-    deleteField(idField);
-    clearShips();
-    width = getWidth();
-    field = resetField();
-    console.log(width);
-    putShips(ships);
-    createField(idField);
-}
-function handlerUpdate() { 
-    deleteField(idField);
-    clearShips();
-    putShips(ships);
-    createField(idField);
-}
-function handlerClear() { 
-    deleteField(idField);
-    clearShips();
-    createField(idField)
-}
-
-btnCreateField.addEventListener( "click" , handlerCreate, false);
-btnUpdateField.addEventListener( "click" , handlerUpdate, false);
-btnClearField.addEventListener( "click" , handlerClear, false);
-
-
-//------------ Клик по ячейке
-document.onclick = function(e) {
-
-    var e = e.target;
-    var dataX = e.getAttribute('data-x');
-    var dataY = e.getAttribute('data-y');
-
-    var isShip = field[dataX][dataY].is_ship;
-
-    field[dataX][dataY].is_opened = true;
-
-    deleteField(idField);
-    createField (idField);  
-
-    if ( !hasShips() ) {
-        alert("Победа");
-    };
-}
-
-window.onload = function() {
-    putShips (ships);
-    createField (idField);
-}
+createField ();
+//console.log(  );
 
 </script>
 
